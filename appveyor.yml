@@ -38,7 +38,7 @@ environment:
     - R_VERSION: 3.6.0
       
 build_script:
-  - travis-tool.sh install BiocManager
+  - travis-tool.sh install_bioc_deps
   - R -e "BiocManager::install(ask=FALSE, update=TRUE)"
   - Rscript setupEnv.R
 
