@@ -39,7 +39,7 @@ environment:
       
 build_script:
   - travis-tool.sh install BiocManager
-  - R -e 'BiocManager::install(ask=FALSE, update=TRUE)' 
+  - R -e "BiocManager::install(ask=FALSE, update=TRUE)"
   - Rscript setupEnv.R
 
 test_script:
