@@ -16,9 +16,6 @@ install:
   #- choco install -y -PackageParameters LegacySupport=true imagemagick
   #- set "PATH=C:\Program Files\ImageMagick-7.0.8-Q16;%PATH%"
 
-cache:
-  - C:\RLibrary
-
 environment:
   # parameters to setup R environment
   # https://github.com/krlmlr/r-appveyor/blob/master/README.md
@@ -41,7 +38,7 @@ environment:
     - R_VERSION: 3.6.0
       
 build_script:
-  - travis-tool.sh install_bioc rlang S4Vectors
+  - travis-tool.sh install BiocManager
   - Rscript setupEnv.R
 
 test_script:
