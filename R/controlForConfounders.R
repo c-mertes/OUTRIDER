@@ -13,6 +13,10 @@
 #' @param BPPARAM A 
 #'     \code{\link[BiocParallel:BiocParallelParam-class]{BiocParallelParam}}
 #'             instance to be used for parallel computing.
+#' @param startBPPARAM if TRUE, the default, the cluster is initialized and 
+#'             started before any calculation to speed up the computation.
+#'             If FALSE, the cluster is started each time computation is done in
+#'             parallel. 
 #' @param ... Further arguments passed on to the specific implementation method.
 #' 
 #' @return An ods object including the control factors 
@@ -33,7 +37,7 @@
 #' @export
 controlForConfounders <- function(ods, q,
                     implementation=c('autoencoder', 'pca'),
-                    BPPARAM=bpparam(), ...){
+                    BPPARAM=bpparam(), startBPPARAM=TRUE, ...){
     
     # error checking
     checkOutriderDataSet(ods)
@@ -62,13 +66,14 @@ controlForConfounders <- function(ods, q,
         autoencoder = { 
                 function(ods, q, ...){ fitAutoencoder(ods, q, ...) } },
         pca         = { 
-                function(ods, q, BPPARAM, ...){ autoCorrectPCA(ods, q, ...) } },
+                function(ods, q, BPPARAM, startBPPARAM, ...){ 
+                        autoCorrectPCA(ods, q, ...) } },
         stop("Requested control implementation is unknown.")
     )
     
     message(date(), ": Using the ", implementation, 
             " implementation for controlling.")
-    ans <- aeFun(ods=ods, q=q, BPPARAM=BPPARAM, ...)
+    ans <- aeFun(ods=ods, q=q, BPPARAM=BPPARAM, startBPPARAM=startBPPARAM, ...)
     message(date(), ": Used the ", implementation, 
             " implementation for controlling.")
     

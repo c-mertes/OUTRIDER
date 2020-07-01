@@ -9,6 +9,7 @@ controlForConfounders(
   q,
   implementation = c("autoencoder", "pca"),
   BPPARAM = bpparam(),
+  startBPPARAM = TRUE,
   ...
 )
 }
@@ -24,6 +25,11 @@ for confounding effects}
 \item{BPPARAM}{A 
 \code{\link[BiocParallel:BiocParallelParam-class]{BiocParallelParam}}
         instance to be used for parallel computing.}
+
+\item{startBPPARAM}{if TRUE, the default, the cluster is initialized and 
+started before any calculation to speed up the computation.
+If FALSE, the cluster is started each time computation is done in
+parallel.}
 
 \item{...}{Further arguments passed on to the specific implementation method.}
 }

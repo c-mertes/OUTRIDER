@@ -4,7 +4,8 @@
 #' @noRd
 fitAutoencoder <- function(ods, q, thetaRange=c(1e-2, 1e3), 
                     convergence=1e-5, iterations=15, initialize=TRUE,
-                    control=list(), BPPARAM=bpparam(), verbose=FALSE){
+                    control=list(), BPPARAM=bpparam(), verbose=FALSE,
+                    startBPPARAM=TRUE){
     
     # Check input
     checkOutriderDataSet(ods)
@@ -12,7 +13,7 @@ fitAutoencoder <- function(ods, q, thetaRange=c(1e-2, 1e3),
     checkSizeFactors(ods)
     checkThetaRange(thetaRange)
     
-    if(!bpisup(BPPARAM)){
+    if(isTRUE(startBPPARAM) & !bpisup(BPPARAM)){
         bpstart(BPPARAM)
     }
     
